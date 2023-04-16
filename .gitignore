@@ -2,3 +2,4 @@
 *.iml
 *.xml
 *.txt
+.vscode/settings.json
