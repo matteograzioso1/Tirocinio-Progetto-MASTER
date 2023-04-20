@@ -3,3 +3,4 @@
 *.xml
 *.txt
 .vscode/settings.json
+__pycache__/functions.cpython-311.pyc
