@@ -3,7 +3,9 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import dash  # pip install dash
-from dash import dcc, html, Input, Output
+from dash import dcc, html, Input, Output, State
+import dash_bootstrap_components as dbc
+
 from dash.exceptions import PreventUpdate
 import pandas as pd
 import numpy
@@ -38,15 +40,112 @@ date = set(date)
 disabled_days = all_date - date
 disabled_days = list(disabled_days)
 
-
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css', dbc.themes.UNITED, dbc.icons.BOOTSTRAP]
+MASTER_LOGO = "http://www.master-project-h2020.eu/wp-content/uploads/2018/02/cropped-Master-logo-1.png"
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+
+# make a reuseable navitem for the different examples
+nav_item = dbc.NavItem(dbc.NavLink("Link", href="#"))
+
+navbar = dbc.Navbar(
+            dbc.Container(
+                [
+                    dbc.Row([
+                        dbc.Col([
+                            html.Img(src=MASTER_LOGO, height="40px"),
+                            # dbc.NavbarBrand("MASTER", className="ms-2")
+                        ],
+                        width={"size":"auto"})
+                    ],
+                    align="center",
+                    className="g-3"),
+
+                    dbc.Row([
+                        dbc.Col([
+                            dbc.Nav([
+                                dbc.NavItem(dbc.NavLink("Home", href="/")),
+                                # dbc.NavItem(dbc.NavLink("Analysis", href="/fundamentals")),
+                                dbc.NavItem(dbc.DropdownMenu(
+                                        children=[
+                                            dbc.DropdownMenuItem("Single date analysis", href="/singledate"),
+                                            dbc.DropdownMenuItem("Multiple date analysis", href="/multipledate"),
+                                            dbc.DropdownMenuItem("Trajectory analysis", href="/trajectory")
+                                        ],
+                                        nav=True,
+                                        in_navbar=True,
+                                        label="Analysis",
+                                )),
+                                dbc.NavItem(dbc.NavLink("Model Showcase", href="/showcase/models")),
+                                dbc.NavItem(dbc.DropdownMenu(
+                                        children=[
+                                            dbc.DropdownMenuItem("More pages", header=True),
+                                            dbc.DropdownMenuItem("Model Showcase", href="/showcase/models")
+                                        ],
+                                        nav=True,
+                                        in_navbar=True,
+                                        label="More",
+                                ))
+                            ],
+                            navbar=True,
+                            )
+                        ],
+                        width={"size":"auto"})
+                    ],
+                    align="center"),
+                    dbc.Col(dbc.NavbarToggler(id="navbar-toggler", n_clicks=0)),
+                    
+                    dbc.Row([
+                        dbc.Col(
+                             dbc.Collapse(
+                                dbc.Nav([
+                                    # dbc.Input(type="search", placeholder="Search"),
+                                    # dbc.Button( "Search", color="primary", className="ms-2", n_clicks=0 ),
+                                ]
+                                ),
+                                id="navbar-collapse",
+                                is_open=False,
+                                navbar=True
+                             )
+                        )
+                    ],
+                    align="center")
+                ] ,
+            fluid=True
+            ),
+    color="secondary",
+    dark=False,
+    style={'padding-top': '10px', 'margin-bottom': '30px', 'border-radius': '10px'}
+)
+
+@dash.callback(
+    Output("navbar-collapse", "is_open"),
+    [Input("navbar-toggler", "n_clicks")],
+    [State("navbar-collapse", "is_open")],
+)
+def toggle_navbar_collapse(n, is_open):
+    if n:
+        return not is_open
+    return is_open
+
+header = html.Div(children=
+        [
+        #html.Img(src=MASTER_LOGO, height="30px", style={'float': 'center'}),
+        html.H1(children = ['Multiple ASpect TrajEctoRy management and analysis'],
+            style = {'font-family':'Comic Sans MS', 'color':'#3A6BAC','textAlign':'center'}),
+        html.H2(children = ['ACTV validation'],
+                style={'font-family':'Comic Sans MS', 'color':'#3A6BAC','textAlign':'center', 
+                       'padding-top': '20px'}),
+        html.H3(children = ['Multiple Date Analysis'],
+                style={'font-family':'Comic Sans MS', 'color':'#3A6BAC','textAlign':'center', 
+                       'padding-top': '20px', 'font-weight': 'bold'})
+        ])
+
 app.layout = html.Div([
     html.Div(children=[
-        html.H3("ACTV validation", style={'textAlign': 'left'}),
-
-        #html.Br(),
+        navbar, header,
+            
+        html.Br(),
         html.Label('Date'),
         dcc.DatePickerRange(
             id='my-date-picker-range',
