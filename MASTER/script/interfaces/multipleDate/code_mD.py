@@ -36,78 +36,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 nav_item = dbc.NavItem(dbc.NavLink("Link", href="#"))
 
 # Navbar 
-navbar = dbc.Navbar(
-            dbc.Container(
-                [
-                    # Logo
-                    dbc.Row([
-                        dbc.Col([
-                            html.Img(src=MASTER_LOGO, height="40px"),
-                        ],
-                        width={"size":"auto"},
-                        style={'padding-top': '10px', 'padding-bottom': '10px', 'margin-right': '5px'})
-                    ],
-                    align="center",
-                    className="g-3"),
-
-                    # Navbar Toggler
-                    dbc.Row([
-                        dbc.Col([
-                            dbc.Nav([
-                                dbc.NavItem(dbc.NavLink("Home", href="/")),
-                                # dbc.NavItem(dbc.NavLink("Analysis", href="/fundamentals")),
-                                dbc.NavItem(dbc.DropdownMenu(
-                                        children=[
-                                            dbc.DropdownMenuItem("Single date analysis", href="/singledate"),
-                                            dbc.DropdownMenuItem("Multiple date analysis", href="/multipledate"),
-                                            dbc.DropdownMenuItem("Trajectory analysis", href="/trajectory")
-                                        ],
-                                        nav=True,
-                                        in_navbar=True,
-                                        label="Analysis",
-                                )),
-                                dbc.NavItem(dbc.NavLink("Model Showcase", href="/showcase/models")),
-                                dbc.NavItem(dbc.DropdownMenu(
-                                        children=[
-                                            dbc.DropdownMenuItem("More pages", header=True),
-                                            dbc.DropdownMenuItem("Model Showcase", href="/showcase/models")
-                                        ],
-                                        nav=True,
-                                        in_navbar=True,
-                                        label="More",
-                                ))
-                            ],
-                            navbar=True,
-                            )
-                        ],
-                        width={"size":"auto"})
-                    ],
-                    align="center", style={'font-size': '11px'}),
-                    dbc.Col(dbc.NavbarToggler(id="navbar-toggler", n_clicks=0)),
-                    
-                    # Search bar
-                    dbc.Row([
-                        dbc.Col(
-                             dbc.Collapse(
-                                dbc.Nav([
-                                    # dbc.Input(type="search", placeholder="Search"),
-                                    # dbc.Button( "Search", color="primary", className="ms-2", n_clicks=0 ),
-                                ]
-                                ),
-                                id="navbar-collapse",
-                                is_open=False,
-                                navbar=True
-                             )
-                        )
-                    ],
-                    align="center")
-                ] ,
-            fluid=True
-            ),
-    color="#007bff29",
-    dark=False,
-    style={'padding-top': '10px', 'margin-bottom': '30px', 'border-radius': '10px'}
-)
+navbar = f_md.navbar()
 
 # Callback to toggle collapse on small screens
 @dash.callback(
@@ -123,29 +52,24 @@ def toggle_navbar_collapse(n, is_open):
     return is_open
 
 # Header of the page
-header = html.Div(children=
-        [
-        #html.Img(src=MASTER_LOGO, height="30px", style={'float': 'center'}),
-        html.H1(children = ['Multiple ASpect TrajEctoRy management and analysis'],
-                    style = {'font-family':'Comic Sans MS', 'color':'#3A6BAC','textAlign':'center'}),
-        html.H2(children = ['ACTV validation'],
-                    style={'font-family':'Comic Sans MS', 'color':'#3A6BAC','textAlign':'center', 
-                       'padding-top': '20px'}),
-        html.H3(children = ['Multiple Date Analysis'],
-                    style={'font-family':'Comic Sans MS', 'color':'#3A6BAC','textAlign':'center', 
-                       'padding-top': '20px', 'font-weight': 'bold'})
-        ])
+header = f_md.header_md(analysis_type='Multiple Date Analysis')
+
+# Insert a paragraph describing the page
+# Notice that the map is a scatter describing the density of validations for each stop
+descr_list = ['This page allows to analyze the validation data for multiple dates.',
+              'The user can select the dates of interest and the type of ticket to analyze.']
+descr_list2 = ['The map shows the density of validations for each stop while the bar chart shows the total number of validations in different time slots.']
+description = f_md.description(descr_list)
+description2 = f_md.description(descr_list2)
 
 # Layout of the page 
 app.layout = html.Div([
     html.Div(children=[
-        navbar, header,
-            
+        navbar, header, description, description2,
         html.Br(),
-        # html.Label('Date'),
         html.Label(children = ['Date'],
                     style={'margin-right': '10px', 'font-weight': 'bold', 'font-size': '12px', 
-                           'padding-top': '15px'}),
+                           'padding-top': '15px', 'color':'#3A6BAC', 'padding-left': '20px'}),
         dcc.DatePickerRange(
             id='my-date-picker-range',
             min_date_allowed=df['date'].min(),
@@ -158,7 +82,8 @@ app.layout = html.Div([
         
         html.Br(),
         html.Label(children = ['Ticket type'],
-                    style={'font-weight': 'bold', 'font-size': '12px', 'padding-top': '15px'}),
+                    style={'font-weight': 'bold', 'font-size': '12px', 'padding-top': '15px', 
+                           'color':'#3A6BAC', 'padding-left': '20px'}),
         dcc.Dropdown(
             id='my-dynamic-dropdown',
             options=[{'label': '24 hours', 'value': 0},
@@ -168,7 +93,7 @@ app.layout = html.Div([
             multi=True,
             value=[0],
             placeholder="Select a ticket type",
-            style={'width': 400, 'align-items': 'left', 'justify-content': 'left'}
+            style={'width': 323, 'align-items': 'left', 'justify-content': 'left', 'padding-left': '20px'}
         ),
     ],style={'padding': 10, 'flex': 1, 'background-color': '#F0F0F0'}),
 
@@ -262,7 +187,7 @@ def update_output_sec(start_date,end_date,value):
     my_time_min = dff2['time'].min()
     my_time_max = dff2['time'].max()
 
-    fig2 = px.bar(dff2,x='time',y='counts',hover_data=['counts'], color='counts',color_continuous_scale='ice',text_auto='.2s',
+    fig2 = px.bar(dff2,x='time',y='counts',hover_data=['counts'], color='counts',color_continuous_scale='ice',text_auto=True,
         height=400,width=1300,labels={'time':'Time slots'})
         #labels={'counts':'Number of tickets'})
     fig2.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
@@ -272,7 +197,6 @@ def update_output_sec(start_date,end_date,value):
     )
     fig2.update_yaxes(title_text='Number of tickets')
     return fig2
-
 
 if __name__ == '__main__':
     app.run_server(debug=True, dev_tools_ui=False)
