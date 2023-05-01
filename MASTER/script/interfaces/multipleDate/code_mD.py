@@ -70,14 +70,16 @@ app.layout = html.Div([
         html.Label(children = ['Date'],
                     style={'margin-right': '10px', 'font-weight': 'bold', 'font-size': '12px', 
                            'padding-top': '15px', 'color':'#3A6BAC', 'padding-left': '20px'}),
+        html.Br(),
         dcc.DatePickerRange(
             id='my-date-picker-range',
             min_date_allowed=df['date'].min(),
             max_date_allowed=df['date'].max(),
             initial_visible_month=df['date'].min(),
             disabled_days=disabled_days,
-            start_date=df['date'].min()#,
-            # end_date=df['date'].max()
+            start_date=df['date'].min(),
+            # end_date=df['date'].max(),
+            style = {'width': 323, 'align-items': 'left', 'justify-content': 'left', 'padding-left': '20px'}
         ),
         
         html.Br(),
@@ -93,7 +95,7 @@ app.layout = html.Div([
             multi=True,
             value=[0],
             placeholder="Select a ticket type",
-            style={'width': 323, 'align-items': 'left', 'justify-content': 'left', 'padding-left': '20px'}
+            style={'width': 287, 'align-items': 'left', 'justify-content': 'left', 'padding-left': '20px'}
         ),
     ],style={'padding': 10, 'flex': 1, 'background-color': '#F0F0F0'}),
 
