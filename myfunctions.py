@@ -29,6 +29,20 @@ def focus_on_ticket_code(df_tc: pd.DataFrame, ticket_code: str) -> pd.DataFrame:
     df_tc = df_tc[df_tc['TICKET_CODE'] == ticket_code]
     return df_tc
 
+def focus_on_ticket_code_list(df_tcl: pd.DataFrame, ticket_code_list: list) -> pd.DataFrame:
+    """
+        This function returns a dataframe with only the rows of the specified ticket code list.
+        :param df: the dataframe
+        :param ticket_code_list: the ticket code list
+        :return: the dataframe with only the rows of the specified ticket code list
+    """
+    # Convert the column ticket_code to string
+    df_tcl['TICKET_CODE'] = df_tcl['TICKET_CODE'].astype(str)
+
+    # Select only the rows of the specified ticket code
+    df_tcl = df_tcl[df_tcl['TICKET_CODE'].isin(ticket_code_list)]
+    return df_tcl
+
 def focus_on_ticket_type(df_tt: pd.DataFrame, ticket_type: str) -> pd.DataFrame:
     """
         This function returns a dataframe with only the rows of the specified ticket type.
