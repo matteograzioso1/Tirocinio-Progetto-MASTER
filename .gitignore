@@ -7,3 +7,4 @@ __pycache__/functions.cpython-311.pyc
 MASTER/
 MASTER.zip
 *.pyc
+data/dictionaries/trajectories/*.json
