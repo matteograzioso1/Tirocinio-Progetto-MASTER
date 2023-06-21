@@ -2,33 +2,64 @@ import pandas as pd
 import json
 import os
 
-def find_txt_files(folder_path = "data/raw"):
+def find_txt_files(folder_path: str) -> list:
+    """
+        This function returns a list of all the txt files in the specified folder.
+        :param folder_path: the path of the folder
+        :return: a list of all the txt files in the specified folder
+    """
+
     txt_files = []
     for root, dirs, files in os.walk(folder_path):
         for file in files:
             if file.endswith('.txt'):
                 txt_files.append(os.path.join(root, file))
+    # Sort the list of txt files in alphabetical order
+    txt_files.sort()
+
     return txt_files
 
-def choose_dataset(txt_files):
+def choose_dataset(txt_files: list) -> str:
+    """
+        This function returns the path of the txt file chosen by the user.
+        :param txt_files: the list of txt files
+        :return: the path of the txt file chosen by the user
+    """
     if not txt_files:
-        print("Nessun file TXT trovato.")
-        return None
-    print("I seguenti file TXT sono stati trovati:")
+        print("No TXT file found.")
+        return "None"
+    print("The following TXT files were found:")
     for i, file_path in enumerate(txt_files):
         print(f"{i+1}. {file_path}")
     while True:
-        choice = input("Inserisci il numero corrispondente al dataset che desideri utilizzare (0 per uscire): ")
+        choice = input("Enter the number corresponding to the dataset you wish to use (0 to exit): ")
         if not choice.isdigit():
-            print("Inserisci un numero valido.")
+            print("Enter a valid number.")
             continue
         choice = int(choice)
         if choice == 0:
-            return None
+            return "None"
         if choice < 1 or choice > len(txt_files):
-            print("Inserisci un numero valido.")
+            print("Enter a valid number.")
             continue
         return txt_files[choice - 1]
+    
+
+def check_folder_exists(path: str) -> bool:
+    """
+        This function checks if a folder exists and creates it if it doesn't exist.
+        :param path: the path of the folder
+        :return: True if the folder exists, False otherwise
+    """
+    import os
+    if os.path.exists(path):
+        print("The folder already exists.")
+        return True
+    else:
+        # Create the folder
+        os.mkdir(path)
+        print("The folder has been created.")
+        return False
     
 
 def get_ticket_code_description(ticket_code: str) -> str:
