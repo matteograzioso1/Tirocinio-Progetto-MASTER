@@ -8,3 +8,5 @@ MASTER/
 MASTER.zip
 *.pyc
 data/dictionaries/trajectories/*
+*.png
+*.html
