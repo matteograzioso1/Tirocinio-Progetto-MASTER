@@ -20,6 +20,24 @@ def find_txt_files(folder_path: str) -> list:
 
     return txt_files
 
+def find_csv_files(folder_path: str) -> list:
+    """
+        This function returns a list of all the csv files in the specified folder.
+        :param folder_path: the path of the folder
+        :return: a list of all the csv files in the specified folder
+    """
+
+    csv_files = []
+    for root, dirs, files in os.walk(folder_path):
+        for file in files:
+            # File extension is .txt or .csv
+            if file.endswith(".csv"):
+                csv_files.append(os.path.join(root, file))
+    # Sort the list of txt files in alphabetical order
+    csv_files.sort()
+
+    return csv_files
+
 def choose_dataset(txt_files: list) -> str:
     """
         This function returns the path of the txt file chosen by the user.
@@ -29,7 +47,10 @@ def choose_dataset(txt_files: list) -> str:
     if not txt_files:
         print("No TXT file found.")
         return "None"
-    print("The following TXT files were found:")
+    if len(txt_files) == 1:
+        print("The following file was found:")
+    else:
+        print("The following files were found:")
     for i, file_path in enumerate(txt_files):
         print(f"{i+1}. {file_path}")
     while True:
@@ -135,3 +156,4 @@ def open_dict_ticket_codes () -> dict:
     with open('data/dictionaries/dict_ticket_codes.json') as f:
         data = json.load(f)
     return data
+
