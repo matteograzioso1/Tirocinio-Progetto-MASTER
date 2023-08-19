@@ -29,7 +29,7 @@ pd.set_option('display.max_rows', None)
 
 # %%
 # Find all txt files in the data folder
-txt_files = mf.find_txt_files("data/processed")
+txt_files = mf.find_txt_files("data/processed/")
 
 # Choose a dataset from the list of txt files
 selected_dataset = mf.choose_dataset(txt_files)
@@ -71,13 +71,18 @@ print(f"Date range: {df['DATA'].min()} - {df['DATA'].max()}")
 note = ""
 # If data range is 04-02-2023 to 21-02-2023, then note = carnival_period
 # If data range is 04-03-2023 to 21-03-2023, then note = after_carnival_period
+# If dara range is 17-01-2023 to 03-02-2023, then note = before_carnival_period
+
 # Get data range
 start_date = df['DATA'].min()
 end_date = df['DATA'].max()
+# Check if data range is carnival_period or after_carnival_period
 if start_date == datetime.date(2023, 2, 4) and end_date == datetime.date(2023, 2, 21):
     note = "carnival_period"
 elif start_date == datetime.date(2023, 3, 4) and end_date == datetime.date(2023, 3, 21):
     note = "after_carnival_period"
+elif start_date == datetime.date(2023, 1, 17) and end_date == datetime.date(2023, 2, 3):
+    note = "before_carnival_period"
 
 print("Note: ", note)
 
