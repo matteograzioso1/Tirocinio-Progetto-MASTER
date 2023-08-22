@@ -13,7 +13,8 @@ def find_txt_files(folder_path: str) -> list:
     for root, dirs, files in os.walk(folder_path):
         for file in files:
             # File extension is .txt or .csv
-            if file.endswith(".txt") or file.endswith(".csv"):
+            # if file.endswith(".txt") or file.endswith(".csv"):
+            if file.endswith(".txt"):
                 txt_files.append(os.path.join(root, file))
     # Sort the list of txt files in alphabetical order
     txt_files.sort()
