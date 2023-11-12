@@ -30,3 +30,135 @@ The project is organized into several components:
 3. Data Analysis: Various data mining techniques are applied to the user trajectories and profiles to identify patterns, trends, and correlations in user behavior. Machine learning algorithms may be employed for tasks such as clustering users or predicting user preferences.
 
 4. Visualization: The results of the analysis are visualized using Matplotlib and Seaborn to extract meaningful insights and facilitate interpretation.
+
+
+## Tree
+- .gitattributes
+- .gitignore
+- .idea/
+  - .gitignore
+- Documenti/
+  - Altro/
+    - A BiLSTM-CNN model for predicting users’ next locations based on geotagged social media.pdf
+    - ACTV_SAC2022-8.pdf
+    - D5.2 - Approved From Portal.pdf
+    - Tesi Filippo Zanatta.pdf
+    - Tesi Francesco Andrea Antoniazzi.pdf
+    - Transactions in GIS - 2018 - Chen - HiSpatialCluster  A novel high‐performance software tool for clustering massive spatial.pdf
+    - legenda denominazioni titoli di viaggio.xlsx
+  - Budspencer/
+    - Notebook 1.b/
+      - Notebook 1_b-Budspencer dataset 1.html
+      - Notebook 1_b-Budspencer dataset 1.pdf
+      - Notebook 1_b-Budspencer dataset 2.html
+      - Notebook 1_b-Budspencer dataset 2.pdf
+      - Notebook 1_b_dataset 3.html
+      - Notebook 1_b_onlyTempCleaning_dataset 0.html
+    - Notebook 2.i/
+      - Notebook 2.i-Budspencer dataset 1.html
+      - Notebook 2.i-Budspencer dataset 1.pdf
+      - Notebook 2.i-Budspencer dataset 2.html
+      - Notebook 2.i-Budspencer dataset 2.pdf
+      - Notebook 2.i-Budspencer dataset 3.html
+    - Notebook 2/
+      - Notebook 2-Budspencer dataset 1.html
+      - Notebook 2-Budspencer dataset 1.pdf
+      - Notebook 2-Budspencer dataset 1.png
+      - Notebook 2-Budspencer dataset 2.html
+      - Notebook 2-Budspencer dataset 2.pdf
+      - Notebook 2-Budspencer dataset 2.png
+      - Notebook 2-Budspencer dataset 3.html
+    - Report/
+      - Report attività Master. rev. 1.0.pdf
+      - Report attività Master. rev. 1.0.pptx
+      - Report attività Master. rev. 1.1.pdf
+      - Report attività Master. rev. 1.1.pptx
+      - Report attività Master. rev. 1.2.pdf
+      - Report attività Master. rev. 1.2.pptx
+      - Report attività Master. rev. 1.3.pdf
+      - Report attività Master. rev. 1.3.pptx
+      - Report attività Master. rev. 1.4.pdf
+      - Report attività Master. rev. 1.4.pptx
+    - risultati clustering/
+      - Nuovo Nuovo clustering/
+        - Tabella delle differenze.pdf
+        - Tabella delle differenze.xlsx
+  - Report/
+    - Report attività Master. rev. 1.0.pdf
+    - Report attività Master. rev. 1.0.pptx
+    - Report attività Master. rev. 1.1.pdf
+    - Report attività Master. rev. 1.1.pptx
+    - Report attività Master. rev. 1.2.pdf
+    - Report attività Master. rev. 1.2.pptx
+    - Report attività Master. rev. 1.3.pdf
+    - Report attività Master. rev. 1.3.pptx
+    - Report attività Master. rev. 1.4.pdf
+    - Report attività Master. rev. 1.4.pptx
+  - risultati clustering/
+    - Nuovo Nuovo clustering/
+      - Tabella delle differenze.pdf
+      - Tabella delle differenze.xlsx
+- MASTER/
+  - README.md
+  - requirements.txt
+  - script/
+    - clustering.ipynb
+    - datasetInterfaces.ipynb
+    - interfaces/
+      - multipleDate/
+        - code_mD.py
+        - output.png
+      - singleDate/
+        - code_sd.py
+        - output.png
+      - trajectories/
+        - code.py
+        - code_t.py
+        - outputMurano.png
+        - outputSingleMurano.png
+      - videoSingleDay/
+        - code.py
+        - code_v.py
+        - output.png
+        - outputVideo.mp4
+- Notebook 1_a.ipynb
+- Notebook 1_b.ipynb
+- Notebook 1_b_onlyTempCleaning.ipynb
+- Notebook 2.i .ipynb
+- Notebook 2.ipynb
+- Notebook 3 AUX GTFS.ipynb
+- Notebook 3 AUX.ipynb
+- Notebook 3 NEW.ipynb
+- Notebook 3.ipynb
+- Notebook 3AUX.ipynb
+- Notebook 3B.ipynb
+- Notebook 4 NUOVO.ipynb
+- Notebook 4.ipynb
+- Notebook3AUX.py
+- Notebook4.py
+- Notebook_1_b_onlyTempCleaning.py
+- ReadME.md
+- cc.py
+- data/
+  - dictionaries/
+    - dict_prefix_Export.json
+    - dict_prefix_esportazioneCompleta.json
+    - dict_prefix_esportazionePasqua23.json
+    - dict_prefix_validazioni.json
+    - dict_ticket_codes.json
+  - processed/
+    - data-GTFS/
+      - stop_aggr.json
+      - stop_all.json
+- file/
+  - carnevale TURISTI UNITI.ipynb
+  - carnevale.ipynb
+  - clustering STUD-LOC-TUR.ipynb
+  - clustering-LOC-TUR estate22.ipynb
+  - estate22 TURISTI UNITI.ipynb
+  - estate22.ipynb
+  - functions.py
+  - sistemazioneFileCsv.ipynb
+- myfunctions.py
+- requirements.txt
+- stop_converted.json
